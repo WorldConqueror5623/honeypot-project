@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honeypot Dashboard</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Courier New', monospace; background: #0d1117; color: #c9d1d9; min-height: 100vh; }
+    header { background: #161b22; border-bottom: 1px solid #30363d; padding: 16px 32px;
+             display: flex; align-items: center; gap: 12px; }
+    header h1 { font-size: 18px; color: #58a6ff; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #3fb950; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; padding: 24px 32px; }
+    .stat { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; text-align: center; }
+    .stat .num { font-size: 28px; font-weight: bold; color: #58a6ff; }
+    .stat .label { font-size: 11px; color: #8b949e; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .table-wrap { padding: 0 32px 32px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { background: #161b22; border: 1px solid #30363d; padding: 10px 14px; text-align: left;
+         color: #8b949e; font-weight: normal; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+    td { border: 1px solid #21262d; padding: 10px 14px; }
+    tr:hover td { background: #161b22; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+    .badge-ssh    { background: #0d4429; color: #3fb950; }
+    .badge-http   { background: #1c2a47; color: #58a6ff; }
+    .badge-telnet { background: #3d1f00; color: #d29922; }
+    .ip  { color: #f85149; }
+    .cred { color: #e3b341; }
+    .ts  { color: #8b949e; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="dot"></div>
+    <h1>Honeypot Monitor</h1>
+    <span style="color:#8b949e;font-size:12px;margin-left:auto">Auto-refresh: 10s</span>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">{{ stats.total }}</div><div class="label">Total Attacks</div></div>
+    <div class="stat"><div class="num" style="color:#3fb950">{{ stats.ssh }}</div><div class="label">SSH</div></div>
+    <div class="stat"><div class="num" style="color:#58a6ff">{{ stats.http }}</div><div class="label">HTTP</div></div>
+    <div class="stat"><div class="num" style="color:#d29922">{{ stats.telnet }}</div><div class="label">Telnet</div></div>
+    <div class="stat"><div class="num" style="color:#f85149">{{ stats.unique_ips }}</div><div class="label">Unique IPs</div></div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Timestamp (UTC)</th>
+          <th>Service</th>
+          <th>Attacker IP</th>
+          <th>Username</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr>
+          <td class="ts">{{ log.timestamp }}</td>
+          <td><span class="badge badge-{{ log.service }}">{{ log.service | upper }}</span></td>
+          <td class="ip">{{ log.attacker_ip }}</td>
+          <td class="cred">{{ log.username }}</td>
+          <td class="cred">{{ log.password }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" style="text-align:center;color:#8b949e;padding:40px">No attacks captured yet</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <script>setTimeout(() => location.reload(), 10000);</script>
+</body>
+</html>

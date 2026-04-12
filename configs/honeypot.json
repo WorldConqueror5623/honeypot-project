@@ -1,0 +1,8 @@
+{
+    "services": {
+      "ssh":    { "host": "0.0.0.0", "port": 2222 },
+      "http":   { "host": "0.0.0.0", "port": 8080 },
+      "telnet": { "host": "0.0.0.0", "port": 2323 }
+    },
+    "dashboard_url": "http://192.168.100.30:5000/api/log"
+  }

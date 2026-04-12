@@ -1,0 +1,14 @@
+[Unit]
+Description=Honeypot Service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/honeypot-project
+ExecStart=/home/pi/honeypot-project/venv/bin/python honeypot/main.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
