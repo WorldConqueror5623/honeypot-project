@@ -16,7 +16,7 @@ sudo ufw default deny outgoing
 sudo ufw allow in on eth0 to any port 2222
 sudo ufw allow in on eth0 to any port 8080
 sudo ufw allow in on eth0 to any port 2323
-sudo ufw allow out to 192.168.100.30
+sudo ufw allow out to 172.20.10.4
 sudo ufw --force enable
 
 # Install and start service

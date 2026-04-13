@@ -17,4 +17,4 @@ sudo systemctl daemon-reload
 sudo systemctl enable dashboard
 sudo systemctl start dashboard
 
-echo "[*] Ubuntu setup complete. Dashboard at http://192.168.100.30:5000"
+echo "[*] Ubuntu setup complete. Dashboard at http://172.20.10.4:5000"

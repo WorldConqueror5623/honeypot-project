@@ -1,3 +1,6 @@
+import sys, os
+sys.path.insert(0, os.path.dirname(__file__))
+
 import threading
 from fake_ssh import start_ssh_server
 from fake_http import start_http_server
@@ -13,8 +16,11 @@ def main():
     for t in threads:
         t.start()
     print("[*] All services running. Ctrl+C to stop.")
-    for t in threads:
-        t.join()
+    try:
+        for t in threads:
+            t.join()
+    except KeyboardInterrupt:
+        print("\n[*] Shutting down.")
 
 if __name__ == "__main__":
     main()
