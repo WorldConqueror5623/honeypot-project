@@ -1,5 +1,5 @@
 #!/bin/bash
-TARGET="172.20.10.3"
+TARGET="172.20.10.9"
 
 echo "[1] Running nmap scan..."
 nmap -sV -p 2222,8080,2323 $TARGET
