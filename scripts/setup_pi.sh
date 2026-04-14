@@ -3,24 +3,18 @@ set -e
 echo "[*] Setting up Raspberry Pi honeypot..."
 
 sudo apt update && sudo apt upgrade -y
-sudo apt install python3 python3-pip python3-venv git ufw -y
+sudo apt install -y python3 python3-pip python3-venv git net-tools
 
-cd ~
+cd ~/honeypot-project
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Firewall rules
-sudo ufw default deny incoming
-sudo ufw default deny outgoing
-sudo ufw allow in on eth0 to any port 2222
-sudo ufw allow in on eth0 to any port 8080
-sudo ufw allow in on eth0 to any port 2323
-sudo ufw allow out to 172.20.10.4
-sudo ufw --force enable
+# Create logs directory
+mkdir -p logs
 
 # Install and start service
-sudo cp systemd/honeypot.service /etc/systemd/system/
+sudo cp ~/honeypot-project/systemd/honeypot.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable honeypot
 sudo systemctl start honeypot

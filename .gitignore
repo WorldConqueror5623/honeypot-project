@@ -1,4 +1,5 @@
 venv/
+logs/attacks.json
 logs/*.json
 __pycache__/
 *.pyc

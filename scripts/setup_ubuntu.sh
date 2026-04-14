@@ -2,19 +2,21 @@
 set -e
 echo "[*] Setting up Ubuntu monitoring server..."
 
-sudo apt update && sudo apt install python3 python3-pip python3-venv -y
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y python3 python3-pip python3-venv git net-tools
 
-cd ~
+cd ~/honeypot-project
 python3 -m venv venv
 source venv/bin/activate
 pip install flask requests
 
-mkdir -p logs
+# Create logs directory where app.py expects it
+mkdir -p ~/honeypot-project/logs
 
 # Install and start dashboard service
-sudo cp systemd/dashboard.service /etc/systemd/system/
+sudo cp ~/honeypot-project/systemd/dashboard.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable dashboard
 sudo systemctl start dashboard
 
-echo "[*] Ubuntu setup complete. Dashboard at http://172.20.10.4:5000"
+echo "[*] Ubuntu setup complete. Dashboard at http://$(hostname -I | awk '{print $1}'):5000"

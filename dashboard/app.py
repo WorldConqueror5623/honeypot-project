@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 app = Flask(__name__)
-LOG_FILE = "logs/attacks.json"
+LOG_FILE = os.path.join(os.path.dirname(__file__), "../logs/attacks.json")
 
 def load_logs():
     if not os.path.exists(LOG_FILE):
