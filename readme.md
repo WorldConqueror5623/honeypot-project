@@ -51,7 +51,7 @@ Ubuntu VM (Dashboard Server)
 ### Software
 - [Raspberry Pi Imager](https://www.raspberrypi.com/software/) — for flashing the Pi OS
 - [VirtualBox](https://www.virtualbox.org/) — for running Ubuntu and Kali VMs
-- Ubuntu Server 22.04 LTS ISO — [download here](https://ubuntu.com/download/server)
+- Ubuntu Server 24.04 LTS ISO — [download here](https://ubuntu.com/download/server)
 - Kali Linux VirtualBox image (.7z) — [download here](https://www.kali.org/get-kali/#kali-virtual-machines)
 - [7-Zip](https://www.7-zip.org/) — to extract the Kali .7z file (Windows)
 
